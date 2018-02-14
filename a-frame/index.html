@@ -5,19 +5,19 @@
 
     <body>
         <a-scene>
-        <a-assets>
-            <a-asset-item id="boots-obj" src="boots/Army_boots.obj"></a-asset-item>
-            <a-asset-item id="boots-mtl" src="boots/Army_boots.mtl"></a-asset-item>
-            <img id="background" src="skypic.jpg">
-        </a-assets>
-        <a-sky src="#background"></a-sky>
+            <a-assets>
+                <a-asset-item id="boots-obj" src="boots/Army_boots.obj"></a-asset-item>
+                <a-asset-item id="boots-mtl" src="boots/Army_boots.mtl"></a-asset-item>
+                <img id="background" src="homepic.jpg">
+            </a-assets>
+            <a-sky src="#background"></a-sky>
+            
+            <a-entity
+                obj-model="obj: #boots-obj; mtl:#boots-mtl" position="0 0 -20">
+            <a-animation attribute="rotation" from="0 -30 0" to="0 330 0" dur="15000"
+                            easing="linear" repeat="indefinite"></a-animation>
 
-        <a-entity
-             obj-model="obj: #boots-obj; mtl:#boots-mtl" position="0 0 -10">
-        <a-animation attribute="rotation" from="0 -30 0" to="0 330 0" dur="15000"
-                        easing="linear" repeat="indefinite"></a-animation>
-
-        </a-entity>
+            </a-entity>
 
        
         </a-scene>
