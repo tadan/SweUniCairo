@@ -3,14 +3,18 @@
         <title>Demo Test w/ Boots for Baetes</title>
         <meta name="viewport" content="width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
         <style>
+
         body{
             padding:0;
             margin:0;
             overflow:hidden;}
+            
             </style>
     </head>
     <body>
-        <div id="container"></div>
+        <div id="container">
+
+        </div>
 
         <script src="three.js/build/three.js"></script>
 
@@ -22,9 +26,11 @@
         <script>
                 if ( ! Detector.webgl ) Detector.addGetWebGLMessage();
 
-                var container, stats, clock, controls;
+                var axis, container, stats, clock, controls;
                 
                 var camera, scene, renderer, boots, floorMat;
+                
+                
                 
                 init();
                 
@@ -35,33 +41,37 @@
                     //angle,apectratio,near,far
                     camera = new THREE.PerspectiveCamera( 25, window.innerWidth / window.innerHeight, 1, 10000 );
                     
-                    camera.position.set( 8, 12, 45 );
-                    //camera.lookAt( new THREE.Vector3( 0, 3, 0 ) );
+                    camera.position.set( 55, 12, 1 );
+                    camera.lookAt( new THREE.Vector3( 0, 3, 0 ) );
                     scene = new THREE.Scene();
-                    scene.background = new THREE.Color( 0xebebeb );
+                    scene.background = new THREE.Color( 0x000000 );
                     clock = new THREE.Clock();
+                    //axis = new THREE.AxisHelper(18);
+                    scene.add(axis);
                     // loading manager
                     var loadingManager = new THREE.LoadingManager( function() {
                         scene.add( boots );
                     } );
                     // collada loader
                     var loader = new THREE.ColladaLoader( loadingManager );
-                    loader.load( '../../a-frame/boots/Army_boots.dae', function ( collada ) {
+                    loader.load( 'three.js/digitalist/digitalist.dae', function ( collada ) {
                         boots = collada.scene;
                     } );
+                    
                     //lights
-                    var ambientLight = new THREE.AmbientLight( 0xcccccc, 0.4 );
+                    var ambientLight = new THREE.AmbientLight( 0xffffff, 0.4 );
                     scene.add( ambientLight );
                     var directionalLight = new THREE.DirectionalLight( 0xffffff, 0.8 );
                     directionalLight.position.set( 1, 1, 0 ).normalize();
                     scene.add( directionalLight );
-                    //floor    
+                    //floor
+                    /*  
                     floorMat = new THREE.MeshStandardMaterial( {
                         roughness: 0.8,
                         color: 0xffffff,
                         metalness: 0.2,
                         bumpScale: 0.0005
-                    });
+                    });*/
                     //render
                     renderer = new THREE.WebGLRenderer();
                     renderer.setPixelRatio( window.devicePixelRatio );
@@ -91,7 +101,7 @@
                 function render() {
                     var delta = clock.getDelta();
                     if ( boots !== undefined ) {
-                        boots.rotation.z += delta * 0.5;
+                        boots.rotation.y += delta * 0.2;
                     }
                     renderer.render( scene, camera );
                 }
