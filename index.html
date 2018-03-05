@@ -1,6 +1,6 @@
 <html lang="en">
     <head>
-        <title>Demo Test w/ Boots for Baetes</title>
+        <title>Stagecast Demo</title>
         <meta name="viewport" content="width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
         <style>
 
@@ -28,7 +28,7 @@
 
                 var axis, container, stats, clock, controls;
                 
-                var camera, scene, renderer, boots, floorMat;
+                var camera, scene, logo, renderer, boots, podiumItem;
                 
                 
                 
@@ -41,21 +41,21 @@
                     //angle,apectratio,near,far
                     camera = new THREE.PerspectiveCamera( 25, window.innerWidth / window.innerHeight, 1, 10000 );
                     
-                    camera.position.set( 55, 12, 1 );
+                    camera.position.set( 10, 5, 20 );
                     camera.lookAt( new THREE.Vector3( 0, 3, 0 ) );
                     scene = new THREE.Scene();
-                    scene.background = new THREE.Color( 0x000000 );
+                    scene.background = new THREE.Color( 0xffffff );
                     clock = new THREE.Clock();
-                    //axis = new THREE.AxisHelper(18);
                     scene.add(axis);
+                    
                     // loading manager
                     var loadingManager = new THREE.LoadingManager( function() {
-                        scene.add( boots );
+                        scene.add( logo );
                     } );
                     // collada loader
                     var loader = new THREE.ColladaLoader( loadingManager );
-                    loader.load( 'three.js/digitalist/digitalist.dae', function ( collada ) {
-                        boots = collada.scene;
+                    loader.load( 'three.js/stagecast/stagecast.dae', function ( collada ) {
+                        logo = collada.scene;
                     } );
                     
                     //lights
@@ -64,14 +64,6 @@
                     var directionalLight = new THREE.DirectionalLight( 0xffffff, 0.8 );
                     directionalLight.position.set( 1, 1, 0 ).normalize();
                     scene.add( directionalLight );
-                    //floor
-                    /*  
-                    floorMat = new THREE.MeshStandardMaterial( {
-                        roughness: 0.8,
-                        color: 0xffffff,
-                        metalness: 0.2,
-                        bumpScale: 0.0005
-                    });*/
                     //render
                     renderer = new THREE.WebGLRenderer();
                     renderer.setPixelRatio( window.devicePixelRatio );
@@ -100,8 +92,8 @@
                 }
                 function render() {
                     var delta = clock.getDelta();
-                    if ( boots !== undefined ) {
-                        boots.rotation.y += delta * 0.2;
+                    if ( logo !== undefined ) {
+                        logo.rotation.y += delta * 0.2;
                     }
                     renderer.render( scene, camera );
                 }
